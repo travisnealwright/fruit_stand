@@ -1,0 +1,20 @@
+<h1>Products</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Price</th>
+    <th>Product</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+<% @products.each do |product| %>
+      <tr>
+        <td>$<%= cents_to_dollars(product.price) %></td>
+        <td><%= product.name %></td>
+        <td><%= button_to "Add To Cart", :controller => "cart", :action => "add_item", :id => @cart.id, :product_id => product.id %></td>
+      </tr>
+ <% end %>
+  </tbody>
+</table>
+<%= link_to "Cart has #{@cart.line_items.size} item(s)", show_cart_path %>
