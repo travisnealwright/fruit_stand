@@ -48,10 +48,11 @@ class CartController < ApplicationController
     @cart = Cart.find(session[:cart_id])
     @order = Order.create
     @cart.line_items.each do |line_item|
-      @order.line_items << LineItem.new({product_id: line_item.product_id, quantity: line_item.quantity})
+      @order.line_items << LineItem.new({product_id: line_item.product_id, quantity: line_item.quantity, price: line_item.total})
     end
-    @order.save
-    if @order.bill
+
+    if @order.save
+      OrderMailer.order_notification(current_user).deliver
       session[:cart_id] = nil
       @cart.destroy
       flash[:notice] = "Thank you for your order"
@@ -59,7 +60,4 @@ class CartController < ApplicationController
     end
   end
 
-
-  def thank_you
-  end
 end

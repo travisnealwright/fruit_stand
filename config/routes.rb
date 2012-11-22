@@ -13,7 +13,7 @@ FruitStand::Application.routes.draw do
   post '/cart/remove_item/:id', to: "cart#remove_item", as: "remove_item"
   post '/cart/checkout', to: "cart#checkout", as: "checkout"
 
-  root to: 'users#new'
-  #root :to => 'products#index'
+  #root to: 'users#new'
+  root :to => 'products#index'
 
 end
